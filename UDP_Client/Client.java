@@ -21,7 +21,7 @@ public class Client {
             Scanner sc = new Scanner(System.in);
             Boolean flag = true;
             Dialog diag= new Dialog(ds, dp);
-            dp = new DatagramPacket(buf, buf.length, InetAddress.getLocalHost(), 154);
+            dp = new DatagramPacket(buf, buf.length, InetAddress.getLocalHost(), 5000);
             ds.send(dp);
             
 
@@ -30,8 +30,10 @@ public class Client {
                 System.out.print("Enter a message:\n ");
                 String message = sc.nextLine();
                 byte[] buffer = message.getBytes();
+                System.out.println(new String(buffer));
+                
 
-                dp = new DatagramPacket(buffer, buffer.length, InetAddress.getLocalHost(), 154);
+                dp = new DatagramPacket(buffer, buffer.length, InetAddress.getLocalHost(), 5000);
                 
                 // if(message=="") {
                 //     ds.receive(dp);

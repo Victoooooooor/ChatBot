@@ -17,8 +17,11 @@ public class Process implements Runnable {
 
     public void run(){
         try {
-            ds.receive(dp);
-            String message= new String(dp.getData());
+            DatagramPacket dp2 = new DatagramPacket(new byte[1024], 1024);
+            ds.receive(dp2);
+            String message= new String(dp2.getData());
+            
+
             if(!sockets.contains(dp.getPort())) {
                 sockets.add(dp.getPort());
                 System.out.println("message : " + dp.getPort() + dp.getAddress());
