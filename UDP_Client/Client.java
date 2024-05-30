@@ -11,14 +11,15 @@ import java.net.InetAddress;
 
 public class Client {
     public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
         try {
-            var connexion = "connexion";
-            byte[] buf = connexion.getBytes();
+            System.out.println("\nEntrez votre nom :");
+            var name=sc.nextLine();
+            byte[] buf = name.getBytes();
 
             DatagramSocket ds = new DatagramSocket();
             DatagramPacket dp;
             ExecutorService pool = Executors.newFixedThreadPool(10);
-            Scanner sc = new Scanner(System.in);
             ClientReceiveProcess proc = new ClientReceiveProcess(ds);
 
             dp = new DatagramPacket(buf, buf.length, InetAddress.getByName("127.0.0.1"), 3500);
