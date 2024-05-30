@@ -19,21 +19,22 @@ public class Process implements Runnable {
         try {
             //Récupérer le texte du message envoyé
             String message = new String(dp.getData(), 0, dp.getLength());
-            System.out.println("[Server] Messagre reçu :"
-                    + message + " par " +
-                    dp.getAddress() + " " + dp.getPort());
+            System.out.println("[Server] Messagre reçu : "+ message + " par " +dp.getAddress() + " " + dp.getPort());
 
+            //Ajouter le client à la liste s'il n'y est pas encore
             if (!sockets.contains(dp.getPort())) {
-                //Ajouter le client à la liste s'il n'y est pas encore
                 sockets.add(dp.getPort());
-                System.out.println("[Server] Connexion établie :" + dp.getAddress() + " " + dp.getPort());
+                System.out.println("[Server] Connexion établie : " + dp.getAddress() + " " + dp.getPort());
             }
 
-            message = message.toUpperCase();
-            byte[] buffer = message.getBytes();
+            String messagePort = "["+Integer.toString(dp.getPort())+"]: " + message;
+            byte[] buffer = messagePort.getBytes();
 
             for (Integer socket : sockets) {
-                //On renvoie le message à tous les clients
+                //On renvoie le message à tous les clients sauf à celui qui l'a envoyé
+                if (socket == dp.getPort()) {
+                    continue;
+                }
                 DatagramPacket send_dp = new DatagramPacket(buffer, buffer.length, dp.getAddress(), socket);
                 ds.send(send_dp);
                 System.out.println("[Server] Envoi : " + message + " à " + dp.getAddress() + " " + socket);

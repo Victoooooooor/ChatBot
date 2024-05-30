@@ -16,8 +16,7 @@ public class Server {
             DatagramSocket ds = new DatagramSocket(port_serveur);
             System.out.println("Serveur démarré sur le port : " + port_serveur);
 
-            Boolean flag = true;
-            while (flag) {
+            while (true) {
                 DatagramPacket dp = new DatagramPacket(new byte[1024], 1024);
                 ds.receive(dp);
                 Process p = new Process(ds, dp, sockets);
