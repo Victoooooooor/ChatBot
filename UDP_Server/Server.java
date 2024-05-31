@@ -13,8 +13,8 @@ public class Server {
 
         try {
             var pool = Executors.newFixedThreadPool(10);
-            Map<Integer,String> portPseudo = new HashMap<>();
-            Map<Integer,InetAddress> ipPort = new HashMap<>();
+            Map<Integer, String> portPseudo = new HashMap<>();
+            Map<Integer, InetAddress> ipPort = new HashMap<>();
 
             DatagramSocket ds = new DatagramSocket(port_serveur);
             System.out.println("Serveur démarré sur le port : " + port_serveur);

@@ -8,9 +8,10 @@ public class Process implements Runnable {
     private DatagramSocket ds;
     private Map<Integer, String> sockets;
     private DatagramPacket dp;
-    private Map<Integer,InetAddress> ipPseudo;
+    private Map<Integer, InetAddress> ipPseudo;
 
-    public Process(DatagramSocket ds, DatagramPacket dp, Map<Integer, String> sockets, Map<Integer,InetAddress> ipPseudo) {
+    public Process(DatagramSocket ds, DatagramPacket dp, Map<Integer, String> sockets,
+            Map<Integer, InetAddress> ipPseudo) {
         this.ds = ds;
         this.sockets = sockets;
         this.dp = dp;
@@ -26,7 +27,7 @@ public class Process implements Runnable {
         // Ajouter le client à la liste s'il n'y est pas encore
         if (!sockets.containsKey(dp.getPort())) {
             sockets.put(dp.getPort(), message);
-            ipPseudo.put( dp.getPort(), dp.getAddress());
+            ipPseudo.put(dp.getPort(), dp.getAddress());
             System.out.println("[Server] Connexion établie : " + dp.getAddress() + " " + dp.getPort());
         } else {
             if (message.contains("/")) {

@@ -14,7 +14,7 @@ public class Client {
         Scanner sc = new Scanner(System.in);
         try {
             System.out.println("\nEntrez votre nom :");
-            var name=sc.nextLine();
+            var name = sc.nextLine();
             byte[] buf = name.getBytes();
 
             DatagramSocket ds = new DatagramSocket();
