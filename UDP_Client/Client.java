@@ -16,7 +16,7 @@ public class Client {
         String ipServer="127.0.0.1";
         try {
             System.out.println("\nEntrez votre nom :");
-            var name=sc.nextLine();
+            var name = sc.nextLine();
             byte[] buf = name.getBytes();
 
             DatagramSocket ds = new DatagramSocket();
