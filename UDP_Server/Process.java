@@ -8,13 +8,13 @@ public class Process implements Runnable {
     private DatagramSocket ds;
     private Map<Integer, String> sockets;
     private DatagramPacket dp;
-    private Map<Integer,InetAddress> ipPseudo;
+    private Map<Integer,InetAddress> ipPort;
 
-    public Process(DatagramSocket ds, DatagramPacket dp, Map<Integer, String> sockets, Map<Integer,InetAddress> ipPseudo) {
+    public Process(DatagramSocket ds, DatagramPacket dp, Map<Integer, String> sockets, Map<Integer,InetAddress> ipPort) {
         this.ds = ds;
         this.sockets = sockets;
         this.dp = dp;
-        this.ipPseudo = ipPseudo;
+        this.ipPort = ipPort;
     }
 
     public void run() {
@@ -26,7 +26,7 @@ public class Process implements Runnable {
         // Ajouter le client à la liste s'il n'y est pas encore
         if (!sockets.containsKey(dp.getPort())) {
             sockets.put(dp.getPort(), message);
-            ipPseudo.put( dp.getPort(), dp.getAddress());
+            ipPort.put( dp.getPort(), dp.getAddress());
             System.out.println("[Server] Connexion établie : " + dp.getAddress() + " " + dp.getPort());
         } else {
             if (message.contains("/")) {
@@ -49,9 +49,9 @@ public class Process implements Runnable {
             try {
                 if (pseudo.equals(sockets.get(socket))) {
                     pseudoExiste = true;
-                    DatagramPacket send_dp = new DatagramPacket(buffer, buffer.length, ipPseudo.get(socket), socket);
+                    DatagramPacket send_dp = new DatagramPacket(buffer, buffer.length, ipPort.get(socket), socket);
                     ds.send(send_dp);
-                    System.out.println("[Server] Envoi : " + parts[1] + " à " + dp.getAddress() + " "
+                    System.out.println("[Server] Envoi : " + parts[1] + " à " + ipPort.get(socket) + " "
                             + sockets.get(socket) + " " + socket);
                 }
             } catch (IOException e) {
@@ -74,9 +74,9 @@ public class Process implements Runnable {
                 if (socket == dp.getPort()) {
                     continue;
                 }
-                DatagramPacket send_dp = new DatagramPacket(buffer, buffer.length, ipPseudo.get(socket), socket);
+                DatagramPacket send_dp = new DatagramPacket(buffer, buffer.length, ipPort.get(socket), socket);
                 ds.send(send_dp);
-                System.out.println("[Server] Envoi : " + message + " à " + dp.getAddress() + " " + sockets.get(socket)
+                System.out.println("[Server] Envoi : " + message + " à " + ipPort.get(socket) + " " + sockets.get(socket)
                         + " " + socket);
             } catch (IOException e) {
                 e.printStackTrace();

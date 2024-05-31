@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +9,7 @@ import java.util.concurrent.Executors;
 public class Server {
     public static void main(String[] args) {
         int port_serveur = 3500;
-
+        
         try {
             var pool = Executors.newFixedThreadPool(10);
             Map<Integer,String> portPseudo = new HashMap<>();
